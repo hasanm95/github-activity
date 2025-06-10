@@ -13,5 +13,7 @@ func main() {
 		log.Fatalf("%v", err)
 	}
 
+	getUserEvents(username)
+
 	fmt.Println("Main func", username)
 }
