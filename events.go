@@ -20,20 +20,38 @@ type GitHubEvent struct {
 func getUserEvents(username string) error {
 	url := fmt.Sprintf("https://api.github.com/users/%s/events", username)
 
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return fmt.Errorf("failed to create request: %w", err)
+	}
+
+	req.Header.Set("User-Agent", "github-activity-cli")
+	
+	client := &http.Client{}
+	resp, err := client.Do(req)
 	if err != nil {
 		return fmt.Errorf("failed to fetch data: %w", err)
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("GitHub API returned status code: %d", resp.StatusCode)
+	}
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("failed to read body")
+		return fmt.Errorf("failed to read body: %w", err)
 	}
 
 	var events []GitHubEvent
 	if err := json.Unmarshal(body, &events); err != nil {
 		return fmt.Errorf("failed to parse JSON: %w", err)
+	}
+
+	// Limit to last 10 events
+	maxEvents := 10
+	if len(events) > maxEvents {
+		events = events[:maxEvents]
 	}
 
 	for _, event := range events {
