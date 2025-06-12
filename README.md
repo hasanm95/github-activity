@@ -64,9 +64,17 @@ go build
 
 The tool handles various error cases:
 - Invalid GitHub usernames
-- API rate limiting
 - Network connectivity issues
 - Invalid API responses
+
+## Future Improvements
+
+Potential enhancements for future versions:
+- Rate limiting handling
+- Caching of API responses
+- Filtering events by type
+- Pagination support for more events
+- Authentication support for higher rate limits
 
 ## Contributing
 
