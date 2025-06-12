@@ -45,9 +45,9 @@ go build
 ### Example Output
 
 ```
-- Pushed 3 commits to hasanm95/developer-roadmap
-- Opened a new issue in hasanm95/developer-roadmap
-- Starred hasanm95/developer-roadmap
+- Pushed 3 commits to hasanm95/github-activity
+- Opened a new issue in hasanm95/github-activity
+- Starred hasanm95/github-activity
 ```
 
 ## Project Structure
