@@ -13,7 +13,9 @@ func main() {
 		log.Fatalf("%v", err)
 	}
 
-	getUserEvents(username)
+	err = getUserEvents(username)
 
-	fmt.Println("Main func", username)
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
 }
